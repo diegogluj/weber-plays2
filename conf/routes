@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+# Provider CRUD
+GET     /provider                    controllers.ProviderController.index()
+POST    /provider                    controllers.ProviderController.providerCreate()
+GET     /provider/new                controllers.ProviderController.providerNewForm()
+GET     /provider/:page              controllers.ProviderController.providerList(page: Integer)
+GET     /provider/:key/edit          controllers.ProviderController.providerEditForm(key: Long)
+POST    /provider/:key/update        controllers.ProviderController.providerUpdate(key: Long)
+GET     /provider/:key/delete        controllers.ProviderController.providerDelete(key: Long)
+GET     /provider/:key/show          controllers.ProviderController.providerShow(key: Long)
+
+# Provider REST API
+GET     /rest/provider                controllers.ProviderController.restList()
+GET     /rest/provider/:key           controllers.ProviderController.restGet(key:Long)
+PUT     /rest/provider/:key           controllers.ProviderController.restUpdate(key:Long)
+POST    /rest/provider                controllers.ProviderController.restCreate()
+DELETE  /rest/provider/:key           controllers.ProviderController.restDelete(key:Long)
+
+# Manual Tests
+# curl -X POST --data '{ "name":"chango"}' --header "Content-Type:application/json" http://local.xanngo.com:9000/rest/provider --include
+# curl -X PUT --data '{ "name":"name", "value":"xanngo"}' --header "Content-Type:application/json" http://local.xanngo.com:9000/rest/provider/2 --include
+# curl -X DELETE --data --header "Content-Type:application/json" http://local.xanngo.com:9000/rest/provider/2 --include

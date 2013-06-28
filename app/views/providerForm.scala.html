@@ -1,0 +1,16 @@
+@(key: Long, providerForm: Form[Provider])
+@import helper._ 
+@import helper.twitterBootstrap._
+
+@main(if(key != null) "update provider" else "new provider") {
+        
+	<h3>@if(key != null) { update provider } else { new provider } </h3>
+    
+    @form(if(key != null) { routes.ProviderController.providerUpdate(providerForm.get().getKey()) } 
+          else             { routes.ProviderController.providerCreate() }) { 
+        @inputText(providerForm("name"), args = '_label -> "name")
+        <div>
+           <input type="submit" class="btn btn-success" value="@if(key != null) { Update } else { Create }">
+        </div>
+    } 
+}

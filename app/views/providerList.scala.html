@@ -1,0 +1,48 @@
+@(page: com.avaje.ebean.Page[Provider])
+@import helper._ 
+@import helper.twitterBootstrap._
+
+@main("list") {
+
+	<h3>@page.getTotalRowCount() objects</h3>
+
+    <a class="btn btn-mini btn-danger pull-right spaced" href="@routes.ProviderController.providerNewForm()">new</a>	
+    @if(page.getTotalRowCount() == 0) {
+        
+        <div class="well">
+            <em>Nothing to display</em>
+        </div>
+        
+    } else {
+	
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="header">name</th>
+                <th>edit</th>
+                <th>delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for(provider <- page.getList()) {
+            <tr>
+                <td>
+                	@provider.getName()
+               	</td>
+                <td><a class="btn btn-mini btn-danger pull-right spaced" href="@routes.ProviderController.providerEditForm(provider.getKey())">edit</a></td>
+               	<td><a class="btn btn-mini btn-danger pull-right spaced" href="@routes.ProviderController.providerDelete(provider.getKey())">delete</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <ul class="pagination">
+      @if(page.hasPrev()) {
+        <li><a href="@routes.ProviderController.providerList(page.getPageIndex() - 1)">Prev</a></li>
+      }
+      @if(page.hasNext()) {
+        <li><a href="@routes.ProviderController.providerList(page.getPageIndex() + 1)">Next</a></li>
+      }
+    </ul>
+    
+    }
+}
